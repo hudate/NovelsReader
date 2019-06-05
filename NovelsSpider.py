@@ -9,6 +9,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.firefox.options import Options
 from time import *
+from getModules import *
 
 class Browser(object):
     def __init__(self, browser, mode=0):
@@ -25,7 +26,7 @@ class Browser(object):
         else:
             self.__browser = 'r'
 
-        # 设置浏览器为无头模式
+        # set browser inti headless mode
         if self.__mode:
             setOptions = Options()
             setOptions.add_argument('--headless')
@@ -97,6 +98,15 @@ def getEveryUrl(bigUrl, biginnum, filename, browser, novelname):
             sleep(2)
 
 if __name__ == '__main__':
+    print('欢迎使用小说阅读下载器。')
+    # some necessary moudles
+    modulesList = ['bs4', 'selenuim']
+    
+    # install modules if necessary 
+    getModules(modulesList)
+    
+    # get novel type
+    novelTyep = input('请输入您的选项：')
     novelname = '摇花放鹰传'
     bigUrl = 'http://www.xyyuedu.com/wuxiaxiaoshuo/wolongsheng/yaohuafangyingchuan/'
     browser = 'r'
