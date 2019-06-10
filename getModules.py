@@ -1,20 +1,20 @@
 #!/user/bin/env python
 #-*- coding -*-
 
+import subprocess
 import os
-import time
 
 def getModules(moduleList):
-    for em in moduleList:
-        while 1:
-            try:
-                __import__ em
-                break
-            except:
-                os.system("python -m pip install " + em)
-                sleep(0.2)
-
-    
-
-
-
+    for needMoudle in moduleList:
+        print('Module Name: %s'%needMoudle)
+        try:
+            __import__(needMoudle)
+            print('You not need install module: %s'%needMoudle)
+        except:
+            print('You need to install module: %s'%needMoudle)
+            if os.name=='nt':
+                subprocess.call("python -m pip install "+ needMoudle, shell=True)
+            elif os.name=='posix':
+                subprocess.call("sudo python -m pip install " + needMoudle, shell=True)
+            else:
+                pass 
