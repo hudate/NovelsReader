@@ -1,8 +1,8 @@
 #!/user/bin/env python
-#-*- coding -*-
+# -*- coding -*-
 
-import subprocess
 import os
+import subprocess
 
 def getModules(moduleList):
     for needMoudle in moduleList:
