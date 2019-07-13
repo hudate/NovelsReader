@@ -9,7 +9,8 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.firefox.options import Options
 from time import *
-from NovelsReader.getModules import getModules
+
+from getModules import getModules
 
 
 class Browser(object):
@@ -101,7 +102,7 @@ def getEveryUrl(bigUrl, biginnum, filename, browser, novelname):
 if __name__ == '__main__':
     print('欢迎使用小说阅读下载器。')
     # some necessary moudles
-    modulesList = ['bs4', 'selenuim']
+    modulesList = ['bs4', 'selenuim', 'PyQt5']
     
     # install modules if necessary 
     getModules(modulesList)
