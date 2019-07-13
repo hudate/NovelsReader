@@ -1,5 +1,5 @@
-#!/user/bin/env python
-#-*- coding -*-
+#!/usr/bin/env python
+# -*- coding -*-
 
 import urllib
 from urllib import request
@@ -9,7 +9,8 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.firefox.options import Options
 from time import *
-from getModules import *
+from NovelsReader.getModules import getModules
+
 
 class Browser(object):
     def __init__(self, browser, mode=0):
@@ -109,6 +110,8 @@ if __name__ == '__main__':
     novelTyep = input('请输入您的选项：')
     novelname = '摇花放鹰传'
     bigUrl = 'http://www.xyyuedu.com/wuxiaxiaoshuo/wolongsheng/yaohuafangyingchuan/'
+
+    # 设置浏览器，若为Firefox 或者 Chrome则使用selenium
     browser = 'r'
     biginnum = 242620
     filename = '摇花放鹰传.txt'
