@@ -41,7 +41,7 @@ class WriteInfosToSettingFile(object):
         f.close()
 
 
-class GetChineseNovelsWebSites(object):
+class GetChineseNovelsWebsites(object):
 
     def __init__(self, url='http://www.hao123.com/book', anchorstring = "ChineseNovelsWebsitesSettings"):
         '''
@@ -81,7 +81,7 @@ class GetChineseNovelsWebSites(object):
         return str(novelsTypeWebSites)
 
 
-class GetEnglishNovelsWebSites(WriteInfosToSettingFile):
+class GetEnglishNovelsWebsites(WriteInfosToSettingFile):
     def __init__(self,url=None, anchorstring="EnglishNovelsWebsitesSettings"):
         self.url = url
         webSitesInfosString = self.startGetWebsites()
@@ -201,7 +201,7 @@ class GetEnglishNovelsTypes(WriteInfosToSettingFile):
 
 
 if __name__ == '__main__':
-    # gcnw = GetChineseNovelsWebSites()
-    # genw = GetEnglishNovelsWebSites()
+    # gcnw = GetChineseNovelsWebsites()
+    # genw = GetEnglishNovelsWebsites()
     # gcnt = GetChineseNovelsTypes()
     gent = GetEnglishNovelsTypes()
