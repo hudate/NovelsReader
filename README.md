@@ -10,6 +10,7 @@
 ### 3.1 获取小说网站和类型并将其写入到配置文件中
 > &emsp;&emsp;在模块getNovelsSetting.py中定义四个类：GetChineseNovelsWebSites, GetEnglishNovelsWebSites, GetChineseNovelsTypes和GetEnglishNovelsTypes，
 分别用于获取汉语小说、英语小说网站的网址和类型。\
+>\
 > &emsp;&emsp;在配置文件novelsSetting.py中有四类：ChineseNovelsWebSites, EnglishNovelsWebSites, ChineseNovelsTypes和EnglishNovelsTypes，分别用于设置中英文小说网站网址和类型。
 
 <br/>
