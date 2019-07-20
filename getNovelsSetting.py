@@ -5,6 +5,7 @@ import os
 import urllib, urllib.request
 from bs4 import BeautifulSoup
 
+
 class WriteInfosToSettingFile(object):
 
     def __init__(self, infos, anchorstring, destpath='.', filename='novelsSetting.py', ):
@@ -38,6 +39,7 @@ class WriteInfosToSettingFile(object):
         f = open(self.fname, mode='w', encoding='utf-8')
         f.write(fileString)
         f.close()
+
 
 class GetChineseNovelsWebSites(object):
 
@@ -78,6 +80,7 @@ class GetChineseNovelsWebSites(object):
 
         return str(novelsTypeWebSites)
 
+
 class GetEnglishNovelsWebSites(WriteInfosToSettingFile):
     def __init__(self,url=None, anchorstring="EnglishNovelsWebsitesSettings"):
         self.url = url
@@ -107,6 +110,7 @@ class GetEnglishNovelsWebSites(WriteInfosToSettingFile):
         else:
             print("反馈失败!")
         return
+
 
 class GetChineseNovelsTypes(WriteInfosToSettingFile):
 
@@ -147,29 +151,22 @@ class GetChineseNovelsTypes(WriteInfosToSettingFile):
             novelsTypes.append(adict)
         return str(novelsTypes)
 
+
 class GetEnglishNovelsTypes(WriteInfosToSettingFile):
 
     def __init__(self, urls=None, anchorstring="EnglishNovelsTypesSettings"):
+        self.headers = {"User-Agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36"}
         from novelsSetting import EnglishNovelsWebsitesSettings as enws
         self.urlsDict = enws
         TypesInfosString = self.getTypes()
         self.anchorstring = anchorstring
-        # writefile = WriteInfosToSettingFile(TypesInfosString, self.anchorstring)
-        # writefile.writeInfos()
+        writefile = WriteInfosToSettingFile(TypesInfosString, self.anchorstring)
+        writefile.writeInfos()
 
     def getTypes(self):
+        novelsTypes = []
         for eweb in self.urlsDict:
-            print('eweb is :', eweb)
-            print('eweb["url"] is :', eweb["url"])
-            soup = self.getSoup(eweb["url"], eweb["headers"])
-            # if eweb["name"] == "英文小说网":
-            #     types = self.getTingRoomTypes(eweb["url"])
-            # if eweb["name"] == "爱思英语":
-            #     types = self.get24EnTypes()
-            # if eweb["name"] == "小e英语":
-            #     types = self.getEn8848Types()
-            # print('soup is :',soup)
-            novelsTypes = []
+            soup = self.getSoup(eweb["url"])
             if eweb["name"] == "英文小说网":
                 ul = soup.find(attrs={"class": "uul"})
                 alla = ul.find_all("a")
@@ -178,41 +175,29 @@ class GetEnglishNovelsTypes(WriteInfosToSettingFile):
                 alla = ul.find_all("a")[1:]
             if eweb["name"] == "小e英语":
                 ul = soup.find(attrs={"class": "has-sub-active"})
-                alla = ul.find_all("a")[1:]
+                alla = ul.find_all("a")[2:]
 
             for a in alla:
                 adict = {}
                 title = a.get_text()
                 href = a["href"]
-                if not(href.startswith("https://www.") or href.startswith("http://www.")):
-                    href = eweb["url"] + '/' + a['href']
+                if not (href.startswith("https") or href.startswith("http")):
+                    if "en8848" in eweb["url"]:
+                        href = '/'.join(eweb["url"].split('/')[:-2]) + a['href']
+                    else:
+                        href = eweb["url"] + a['href'][1:]
                 adict[title] = href
                 novelsTypes.append(adict)
-            print(novelsTypes)
+
         return novelsTypes
 
-    def getSoup(self, url, headers):
-        req = urllib.request.Request(url=url, headers=headers)
+    def getSoup(self, url):
+        req = urllib.request.Request(url=url, headers=self.headers)
         reqText = urllib.request.urlopen(req).read().decode()
         # print(reqText)
 
         soup = BeautifulSoup(reqText, 'lxml')
         return soup
-
-    # # def getTingRoomTypes(self, url):
-    #     soup = self.getSoup(url)
-    #
-    # def get24EnTypes(self, url):
-    #     soup = self.getSoup(url)
-    #
-    #
-    # def getEn8848Types(self, url):
-    #     soup = self.getSoup(url)
-
-
-
-
-
 
 
 if __name__ == '__main__':
